@@ -1,6 +1,7 @@
 package com.shivraj.ProductsService.service;
 
 import com.shivraj.ProductsService.entity.Product;
+import com.shivraj.ProductsService.exception.ProductServiceCustomException;
 import com.shivraj.ProductsService.model.ProductRequest;
 import com.shivraj.ProductsService.model.ProductResponse;
 import com.shivraj.ProductsService.repository.ProductRepository;
@@ -34,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
     public ProductResponse getProductById(long productId) {
         log.info("Get product by productId is:- " + productId);
 
-       Product product =  productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+       Product product =  productRepository.findById(productId).orElseThrow(() -> new ProductServiceCustomException("Product not found","PRODUCT_NOT_FOUND"));
 
         ProductResponse productResponse = new ProductResponse();
 
