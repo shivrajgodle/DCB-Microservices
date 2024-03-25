@@ -2,6 +2,7 @@ package com.shivraj.OrderService.controller;
 
 import com.netflix.discovery.converters.Auto;
 import com.shivraj.OrderService.model.OrderRequest;
+import com.shivraj.OrderService.model.OrderResponse;
 import com.shivraj.OrderService.service.OrderService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,11 @@ public class OrderController {
         long orderId = orderService.placeOrder(orderRequest);
         log.info("Order Id:{}", orderId);
         return new ResponseEntity<>(orderId, HttpStatus.OK);
-
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponse> getOrder(@PathVariable("id") long orderId) {
+        OrderResponse orderResponse = orderService.getOrder(orderId);
+        return new ResponseEntity<>(orderResponse,HttpStatus.OK);
+    }
 }
